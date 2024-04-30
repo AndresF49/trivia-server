@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const app = express();
 const PORT = 3000;
@@ -9,6 +10,8 @@ let answersDict = {};
 
 // Middleware to parse JSON bodies
 app.use(bodyParser.json());
+
+app.use(cors());
 
 app.get('/', (req, res) => {
   res.send('Welcome to my simple Express server!');
