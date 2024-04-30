@@ -1,0 +1,15 @@
+{
+  "name": "trivianight",
+  "version": "1.0.0",
+  "description": "",
+  "main": "trivia.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon trivia.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
