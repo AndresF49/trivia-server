@@ -38,9 +38,13 @@ app.post('/addAnswer', (req, res) => {
   });
 });
 
+const transformAnswerRes = (answers) => Object.keys(answers).map(key => {
+  return { name: key, answer: answers[key] };
+});
+
 app.get("/getAnswers", (req, res) => {
   console.table(answersDict);
-  res.status(200).json(answersDict);
+  res.status(200).json(transformAnswerRes(answersDict));
 });
 
 app.get("/clearAll", (req, res) => {
@@ -84,14 +88,6 @@ app.get("/checkScores", (req, res) => {
   res.status(200).json(scoresDict);
 });
 
-app.post("/getAdmin", (req, res) => {
-  const password = req.body.password;
-  if (password !== "andresisawesome") {
-    return res.status(400).json({ error: "You are not an admin bruv" });
-  }
-
-  res.status(200).json({ role: "admin" });
-});
 
 // Start the server
 app.listen(PORT, () => {
