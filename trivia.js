@@ -1,11 +1,11 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const app = express();
 const PORT = 3000;
 
-let scoresDict= {};
+let scoresDict = {};
 let answersDict = {};
 
 // Middleware to parse JSON bodies
@@ -13,12 +13,12 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
-app.get('/', (req, res) => {
-  res.send('Welcome to my simple Express server!');
+app.get("/", (req, res) => {
+  res.send("Welcome to my simple Express server!");
 });
 
 // Endpoint to handle POST requests
-app.post('/addAnswer', (req, res) => {
+app.post("/addAnswer", (req, res) => {
   const name = req.body.name;
   const answer = req.body.answer;
 
@@ -29,18 +29,19 @@ app.post('/addAnswer', (req, res) => {
   if (!(name in scoresDict)) {
     scoresDict[name] = 0;
   }
-  
+
   answersDict[name] = answer;
-  
-  res.status(200).json({ 
+
+  res.status(200).json({
     name: `${name}`,
-    message: `${name} answered with ${answer}`
+    message: `${name} answered with ${answer}`,
   });
 });
 
-const transformAnswerRes = (answers) => Object.keys(answers).map(key => {
-  return { name: key, answer: answers[key] };
-});
+const transformAnswerRes = (answers) =>
+  Object.keys(answers).map((key) => {
+    return { name: key, answer: answers[key] };
+  });
 
 app.get("/getAnswers", (req, res) => {
   console.table(answersDict);
@@ -77,9 +78,9 @@ app.post("/addScore", (req, res) => {
   }
 
   scoresDict[name] += score;
-  res.status(200).json({ 
-    name: `${name}`, 
-    message: `Added score of ${scoreStr} to ${name}: ${scoresDict[name]}`
+  res.status(200).json({
+    name: `${name}`,
+    message: `Added score of ${scoreStr} to ${name}: ${scoresDict[name]}`,
   });
 });
 
@@ -87,7 +88,6 @@ app.get("/checkScores", (req, res) => {
   console.table(scoresDict);
   res.status(200).json(scoresDict);
 });
-
 
 // Start the server
 app.listen(PORT, () => {
